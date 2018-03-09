@@ -1,0 +1,61 @@
+#Pseudo Cógdigo Buscar Pelota NAO
+#Estructura de estados y funciones para seguir pelota.
+
+función buscar_pelota () #Secuencia necesaria para encontrar, seguir y acercarse a pelota.
+  busqueda_girando() #Girar en propio eje hasta encontrar pelota. Estoy pensando que la función de Kevin puede retornar T y F si se identifica la pelota además de las coordenadas.
+    identificar_pelota() #Asi le esty llamando a la función de visión de Kevin.
+  While (identificar_pelota = T) & (-5 < X < 5) #Loop activo cuando se ha identificado una pelota.
+    centrar_pelota(X) #Girar hasta centrar pelota en coordenada X.
+  While (-5 < X < 5) #Estoy usando -5 < X < 5 como treshold para centrar la pelota.
+    caminar_hacia_pelota() #Función de caminar para dirigirse hacia la pelota.
+
+#Funciones con mayor estructura.
+
+  def busqueda_girando(): #Función para buscar pelota. Hace que el robot gira alrededor de su eje en pi grados buscando la pelota.
+
+    amount_to_turn = 0
+    direccion = 0
+
+    while identificar_pelota() = F #Loop se ejecuta mientras la función de la camara nos da F.
+
+      if dirección = 0: #Aumentar ángulo de giro hacia la izquierda.
+        amount_to_turn = amount_to_turn + .1
+
+      if direccion = 1: #Aumentar ángulo de giro hacia la derecha.
+        amount_to_turn = amount_to_turn - 1
+
+      motionProxy = ALProxy("ALMotion")
+      motionProxy.walkTo(0,0,amount_to_turn) #Girar hacia posición especificada por amount_to_turn.
+
+      if amount_to_turn > 3.1: #Switch para cambiar dirección de giro.
+        direccion = 1
+
+      if amount_to_turn < 0: #Switch para cambiar dirección de giro.
+        dirección = 1
+
+      identificar_pelota() #llamar función de Kevin para poder salir de loop con un T.
+
+
+  def centrar_pelota(): #función se activa cuando se ha localizado una pelota.
+    amount_to_turn = 0
+
+    while (-5 < X < 5) #Condición para dejar de centrar pelota es que ya se encuentre en el centro.
+      if X > 0: #Si la pelota se encuentra a la derecha se activa secuencia para girar hacia la derecha.
+        motionProxy = ALProxy("ALMotion")
+        motionProxy.walk(0,0,amount_to_turn)
+        identificar_pelota()
+
+      if X < 0: #Si la pelota se encuentra a la izquierda se activa secuencia para girar hacia la izquierda.
+        motionProxy = ALProxy("ALMotion")
+        motionProxy.walk(0,0,amount_to_turn)
+        identificar_pelota():
+
+      amount_to_turn = amount_to_turn + 1
+
+  def caminar_hacia_pelota():
+    while (Y > Ymin) #Buscar acercarse lo más que se pueda a la pelota.
+      motionProxy = ALMotion("ALMotion")
+      motionProxy.walk(1,0,0)
+      identificador_pelota()
+
+////////////////////////////////////////////////
